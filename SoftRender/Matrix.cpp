@@ -15,11 +15,23 @@ Matrix::~Matrix()
 
 Matrix::Matrix(Matrix && m)
 {
+	Release();
 	m_data = m.m_data; 
 	m_line = m.m_line; 
 	m_column = m.m_column; 
 
 	m.m_data = nullptr;
+}
+
+Matrix & Matrix::operator=(Matrix && m)
+{
+	Release();
+	m_data = m.m_data; 
+	m_line = m.m_line; 
+	m_column = m.m_column; 
+
+	m.m_data = nullptr;
+	return *this;
 }
 
 void Matrix::Init(const std::initializer_list<float>& initList)
@@ -29,6 +41,24 @@ void Matrix::Init(const std::initializer_list<float>& initList)
 		for (int j = 0; j < m_column; j++) {
 			Set(i, j, *it);
 			++it;
+		}
+	}
+}
+
+void Matrix::Zero()
+{
+	for (int i = 0; i < m_line; i++) {
+		for (int j = 0; j < m_column; j++) {
+			Set(i, j, 0);
+		}
+	}
+}
+
+void Matrix::Unit()
+{
+	for (int i = 0; i < m_line; i++) {
+		for (int j = 0; j < m_column; j++) {
+			Set(i, j, i==j ? 1.0f : 0);
 		}
 	}
 }
@@ -54,7 +84,7 @@ void Matrix::Print()
 {
 	for (int i = 0; i < m_line; i++) {
 		for (int j = 0; j < m_column; j++) {
-			printf("%f\t", Get(i, j));
+			printf("%.2f\t", Get(i, j));
 		}
 		printf("\n");
 	}

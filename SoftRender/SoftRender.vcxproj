@@ -19,13 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="GraphDef.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Transport.h" />
+    <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Transport.cpp" />
+    <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{988AF38F-1927-4C40-8949-6D81FFB6830B}</ProjectGuid>

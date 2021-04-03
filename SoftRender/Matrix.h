@@ -2,15 +2,18 @@
 #define MATRIX_T_H
 
 #include <initializer_list>
-#include <stdio.h>
 class Matrix
 {
 public:
 	Matrix(int line, int column);
 	~Matrix();
 	Matrix(Matrix &&m);
+	Matrix &operator=(Matrix &&m);
 
 	void Init(const std::initializer_list<float> &initList);
+
+	void Zero();
+	void Unit();
 
 	static Matrix Product(const Matrix &m1, const Matrix &m2);
 
@@ -22,13 +25,11 @@ public:
 private:
 	void Alloc()
 	{
-		printf("alloc\n");
 		m_data = new float[m_line * m_column];
 	}
 	void Release()
 	{
 		if (m_data != nullptr) {
-			printf("release\n");
 			delete[]m_data;
 			m_data = nullptr;
 		}
