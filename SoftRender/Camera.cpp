@@ -57,4 +57,10 @@ void Camera::UpdateProject()
 {
 	m_projTrans.Unit();
 	float cotVy = 1 / tan(m_fovY * 0.5f);
+	m_projTrans.Set(0, 0, cotVy / m_aspect);
+	m_projTrans.Set(1, 1, cotVy);
+	m_projTrans.Set(2, 2, m_zf / (m_zf - m_zn));
+	m_projTrans.Set(3, 2, -m_zf * m_zn / (m_zf - m_zn));
+	m_projTrans.Set(2, 3, 1);
+	m_projTrans.Set(3, 3, 0);
 }
