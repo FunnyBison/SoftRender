@@ -19,6 +19,10 @@ VertexBreaker::VertexBreaker(const Vertex & v1, const Vertex & v2, float step)
 	m_invCurr.norm.y *= invW1;
 	m_invCurr.norm.z *= invW1;
 
+	m_invCurr.world.x *= invW1;
+	m_invCurr.world.y *= invW1;
+	m_invCurr.world.z *= invW1;
+
 	//²½³¤
 	float invW2 = 1 / v2.pos.w;
 	m_invStep.pos.x = (v2.pos.x - m_invCurr.pos.x) * step;
@@ -27,8 +31,8 @@ VertexBreaker::VertexBreaker(const Vertex & v1, const Vertex & v2, float step)
 	m_invStep.pos.w = (invW2 - invW1) * step;
 
 	m_invStep.c.r = (v2.c.r * invW2 - m_invCurr.c.r) * step;
-	m_invStep.c.g = (v2.c.r * invW2 - m_invCurr.c.g) * step;
-	m_invStep.c.b = (v2.c.r * invW2 - m_invCurr.c.b) * step;
+	m_invStep.c.g = (v2.c.g * invW2 - m_invCurr.c.g) * step;
+	m_invStep.c.b = (v2.c.b * invW2 - m_invCurr.c.b) * step;
 
 	m_invStep.t.u = (v2.t.u * invW2 - m_invCurr.t.u) * step;
 	m_invStep.t.v = (v2.t.v * invW2 - m_invCurr.t.v) * step;
@@ -36,6 +40,10 @@ VertexBreaker::VertexBreaker(const Vertex & v1, const Vertex & v2, float step)
 	m_invStep.norm.x = (v2.norm.x * invW2 - m_invCurr.norm.x) * step;
 	m_invStep.norm.y = (v2.norm.y * invW2 - m_invCurr.norm.y) * step;
 	m_invStep.norm.z = (v2.norm.z * invW2 - m_invCurr.norm.z) * step;
+
+	m_invStep.world.x = (v2.world.x * invW2 - m_invCurr.world.x) * step;
+	m_invStep.world.y = (v2.world.y * invW2 - m_invCurr.world.y) * step;
+	m_invStep.world.z = (v2.world.z * invW2 - m_invCurr.world.z) * step;
 }
 
 VertexBreaker::~VertexBreaker()
@@ -59,6 +67,10 @@ void VertexBreaker::Add()
 	m_invCurr.norm.x += m_invStep.norm.x;
 	m_invCurr.norm.y += m_invStep.norm.y;
 	m_invCurr.norm.z += m_invStep.norm.z;
+
+	m_invCurr.world.x += m_invStep.world.x;
+	m_invCurr.world.y += m_invStep.world.y;
+	m_invCurr.world.z += m_invStep.world.z;
 }
 
 void VertexBreaker::GetPoint(Vertex & v)
@@ -80,4 +92,8 @@ void VertexBreaker::GetPoint(Vertex & v)
 	v.norm.x = m_invCurr.norm.x * w;
 	v.norm.y = m_invCurr.norm.y * w;
 	v.norm.z = m_invCurr.norm.z * w;
+
+	v.world.x = m_invCurr.world.x * w;
+	v.world.y = m_invCurr.world.y * w;
+	v.world.z = m_invCurr.world.z * w;
 }
