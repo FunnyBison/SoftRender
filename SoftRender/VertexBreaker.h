@@ -9,7 +9,6 @@ public:
 	void Add();
 	void GetPoint(Vertex &v);
 
-	Vertex	m_invV1;
 	Vertex  m_invStep;
 	Vertex  m_invCurr;
 };

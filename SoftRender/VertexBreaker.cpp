@@ -5,40 +5,37 @@ VertexBreaker::VertexBreaker(const Vertex & v1, const Vertex & v2, float step)
 {
 	//起始点
 	float invW1 = 1 / v1.pos.w;
-	m_invV1 = v1;
-	m_invV1.pos.w = invW1;
+	m_invCurr = v1;
+	m_invCurr.pos.w = invW1;
 
-	m_invV1.c.r *= invW1;
-	m_invV1.c.g *= invW1;
-	m_invV1.c.b *= invW1;
+	m_invCurr.c.r *= invW1;
+	m_invCurr.c.g *= invW1;
+	m_invCurr.c.b *= invW1;
 
-	m_invV1.t.u *= invW1;
-	m_invV1.t.v *= invW1;
+	m_invCurr.t.u *= invW1;
+	m_invCurr.t.v *= invW1;
 
-	m_invV1.norm.x *= invW1;
-	m_invV1.norm.y *= invW1;
-	m_invV1.norm.z *= invW1;
+	m_invCurr.norm.x *= invW1;
+	m_invCurr.norm.y *= invW1;
+	m_invCurr.norm.z *= invW1;
 
 	//步长
 	float invW2 = 1 / v2.pos.w;
-	m_invStep.pos.x = (v2.pos.x - m_invV1.pos.x) * step;
-	m_invStep.pos.y = (v2.pos.y - m_invV1.pos.y) * step;
-	m_invStep.pos.z = (v2.pos.z - m_invV1.pos.z) * step;
+	m_invStep.pos.x = (v2.pos.x - m_invCurr.pos.x) * step;
+	m_invStep.pos.y = (v2.pos.y - m_invCurr.pos.y) * step;
+	m_invStep.pos.z = (v2.pos.z - m_invCurr.pos.z) * step;
 	m_invStep.pos.w = (invW2 - invW1) * step;
 
-	m_invStep.c.r = (v2.c.r * invW2 - m_invV1.c.r) * step;
-	m_invStep.c.g = (v2.c.r * invW2 - m_invV1.c.g) * step;
-	m_invStep.c.b = (v2.c.r * invW2 - m_invV1.c.b) * step;
+	m_invStep.c.r = (v2.c.r * invW2 - m_invCurr.c.r) * step;
+	m_invStep.c.g = (v2.c.r * invW2 - m_invCurr.c.g) * step;
+	m_invStep.c.b = (v2.c.r * invW2 - m_invCurr.c.b) * step;
 
-	m_invStep.t.u = (v2.t.u * invW2 - m_invV1.t.u) * step;
-	m_invStep.t.v = (v2.t.v * invW2 - m_invV1.t.v) * step;
+	m_invStep.t.u = (v2.t.u * invW2 - m_invCurr.t.u) * step;
+	m_invStep.t.v = (v2.t.v * invW2 - m_invCurr.t.v) * step;
 
-	m_invStep.norm.x = (v2.norm.x * invW2 - m_invV1.norm.x) * step;
-	m_invStep.norm.y = (v2.norm.y * invW2 - m_invV1.norm.y) * step;
-	m_invStep.norm.z = (v2.norm.z * invW2 - m_invV1.norm.z) * step;
-
-	//当前点
-	m_invCurr = m_invV1;
+	m_invStep.norm.x = (v2.norm.x * invW2 - m_invCurr.norm.x) * step;
+	m_invStep.norm.y = (v2.norm.y * invW2 - m_invCurr.norm.y) * step;
+	m_invStep.norm.z = (v2.norm.z * invW2 - m_invCurr.norm.z) * step;
 }
 
 VertexBreaker::~VertexBreaker()

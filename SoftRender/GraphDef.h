@@ -21,6 +21,7 @@ struct Vertex
 	Color c;			//颜色
 	TexturePos t;		//纹理坐标
 	Vector3d norm;		//法向量
+	Vector3d world;		//世界坐标
 };
 
 struct Triangle
