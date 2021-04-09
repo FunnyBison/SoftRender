@@ -47,6 +47,8 @@ public:
 	}
 };
 
+void Init();
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, char *, int cmdShow) {
 	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
 	AllocConsole();   
@@ -55,8 +57,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, char *, int cmdShow) {
 	freopen("CONOUT$", "w+t", stdout);    
 	freopen("CONIN$", "r+t", stdin);  
 
-
-	SoftRenderWindow mainWnd(hInstance, 800, 800, "主窗口");
+	Init();
+	SoftRenderWindow mainWnd(hInstance, 805, 800, "主窗口");
 	mainWnd.CreateTheWindow();
 	SoftRenderWindow::WndMessageLoop();
 
