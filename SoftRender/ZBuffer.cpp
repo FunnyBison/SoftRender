@@ -3,7 +3,7 @@
 #include <string.h>
 
 ZBuffer::ZBuffer()
-	:m_w(1000), m_h(1000)
+	:m_w(1920), m_h(1080)
 {
 	m_z = new float[m_w * m_h];
 	m_default = new float[m_w * m_h];

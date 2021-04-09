@@ -21,7 +21,8 @@ private:
 	void GenClassName();
 	void MoveCenter();
 	void RegisterClass();
-private:
+
+protected:
 	char	m_className[128];
 	char	m_wndName[128];
 

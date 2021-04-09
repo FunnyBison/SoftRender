@@ -10,7 +10,7 @@ public:
 	Render();
 	~Render();
 
-	void Resize(int w, int h);
+	void Resize(HWND hwnd, int w, int h);
 
 	void Pixel(const Vertex &v);
 

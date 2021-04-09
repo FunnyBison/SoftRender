@@ -52,9 +52,6 @@ void Model::UpdateFinal()
 	m_final.TransformByOther(m_world);
 	m_final.TransformByOther(g_Camera.m_cameraTrans);
 	m_final.TransformByOther(g_Camera.m_projTrans);
-
-	g_Camera.m_cameraTrans.m.Print();
-	m_final.m.Print();
 }
 
 Model g_model;

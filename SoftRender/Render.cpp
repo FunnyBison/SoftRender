@@ -14,10 +14,10 @@ Render::~Render()
 {
 }
 
-void Render::Resize(int w, int h)
+void Render::Resize(HWND hwnd, int w, int h)
 {
 	m_bmp.DeleteBmp();
-	m_bmp.Create(w, h);
+	m_bmp.Create(hwnd, w, h);
 	m_width = w;
 	m_height = h;
 
@@ -106,6 +106,7 @@ void Render::FillTriangle(const Triangle &t)
 		vb.GetPoint(vInter);
 		FillPanTriangle(v[0], vInter, v[1]);
 		FillPanTriangle(v[2], vInter, v[1]);
+		Line(vInter, v[1]);
 	}
 }
 

@@ -20,7 +20,7 @@ public:
 	}
 
 private:
-	float *GetPointer(int i, int j) { return m_z + (i * m_w + j); }
+	float *GetPointer(int i, int j) { return m_z + (i * m_h + j); }
 
 private:
 	float  *m_z;

@@ -6,7 +6,7 @@ public:
 	MemBmp();
 	~MemBmp();
 
-	void Create(int w, int h);
+	void Create(HWND hwnd, int w, int h);
 
 	void Set(int x, int y, COLORREF c);
 
@@ -22,6 +22,7 @@ public:
 
 private:
 	HBITMAP m_hBmp;
+	HDC		m_hdcMem;
 	BITMAPINFO m_bmpInfo;
 
 	void *	m_bmpBuffer;
