@@ -103,10 +103,6 @@ void Render::FillTriangle(const Triangle &t)
 		FillPanTriangle(v[0], vInter, v[1]);
 		FillPanTriangle(v[2], vInter, v[1]);
 	}
-
-	Line(v[0], v[1]);
-	Line(v[1], v[2]);
-	Line(v[2], v[0]);
 }
 
 void Render::FillPanTriangle(const Vertex & v0, const Vertex & v1, const Vertex & v2)
@@ -121,6 +117,11 @@ void Render::FillPanTriangle(const Vertex & v0, const Vertex & v1, const Vertex 
 		step--;
 		vb1.GetPoint(scan1);
 		vb2.GetPoint(scan2);
+		//扫描线端点取整
+		scan1.pos.x = round(scan1.pos.x);
+		scan1.pos.y = round(scan1.pos.y);
+		scan2.pos.x = round(scan2.pos.x);
+		scan2.pos.y = round(scan2.pos.y);
 		Line(scan1, scan2);
 		vb1.Add();
 		vb2.Add();
