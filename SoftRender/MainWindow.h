@@ -12,7 +12,7 @@ public:
 	void CreateTheWindow();
 
 	//用于重载做消息处理
-	virtual LRESULT SelfWndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	virtual LRESULT SelfWndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) = 0;
 
 	//窗口主循环，直接调用
 	static DWORD WndMessageLoop();

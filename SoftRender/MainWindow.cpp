@@ -60,7 +60,9 @@ LRESULT MainWindow::DefaultProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam
 {
 	MainWindow *pWnd = (MainWindow*)GetWindowLong(wnd, GWL_USERDATA);
 	if (pWnd != NULL) {
-		pWnd->SelfWndProc(wnd, msg, wParam, lParam);
+		if (!pWnd->SelfWndProc(wnd, msg, wParam, lParam)) {
+			return 0;
+		}
 	}
 
 	switch (msg) {
@@ -71,18 +73,6 @@ LRESULT MainWindow::DefaultProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam
 		return DefWindowProc(wnd, msg, wParam, lParam);
 	}
 	return 0;
-}
-
-LRESULT MainWindow::SelfWndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	switch (msg){
-	case WM_KEYDOWN:
-		MessageBox(m_hWnd, "keydown", "test", MB_OK);
-		break;
-	default:
-		break;
-	}
-	return LRESULT();
 }
 
 DWORD MainWindow::WndMessageLoop()

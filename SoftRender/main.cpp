@@ -29,11 +29,14 @@ public:
 			m_render.Resize(width, height);
 			break;
 		}
+		case WM_ERASEBKGND:
+			return 0;
+			break;
 
 		default:
 			break;
 		}
-		return LRESULT();
+		return 1;
 	}
 
 	void Paint(HDC hdc)
