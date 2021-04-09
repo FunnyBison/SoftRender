@@ -30,6 +30,7 @@
     <ClInclude Include="Transport.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="VertexBreaker.h" />
+    <ClInclude Include="ZBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
@@ -43,6 +44,7 @@
     <ClCompile Include="Vector3D.cpp" />
     <ClCompile Include="VertexBreaker.cpp" />
     <ClCompile Include="init.cpp" />
+    <ClCompile Include="ZBuffer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{988AF38F-1927-4C40-8949-6D81FFB6830B}</ProjectGuid>

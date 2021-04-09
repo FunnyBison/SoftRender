@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include "MemBmp.h"
 #include "GraphDef.h"
+#include "ZBuffer.h"
 #include <array>
 class Render
 {
@@ -24,7 +25,8 @@ public:
 	void ToScreen(Vertex &v);
 
 	MemBmp	m_bmp;
-	//HDC		m_hDc;
+	ZBuffer m_zBuffer;
+
 	int m_width;
 	int m_height;
 };

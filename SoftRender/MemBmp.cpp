@@ -27,7 +27,6 @@ void MemBmp::Create(int w, int h)
 	m_bmpInfo.bmiHeader.biClrImportant = 0;
 
 	m_hBmp = CreateDIBSection(NULL, &m_bmpInfo, DIB_RGB_COLORS, &m_bmpBuffer, NULL, 0);
-	Clean();
 
 	m_scanLineWidth = (m_bmpInfo.bmiHeader.biWidth * m_bmpInfo.bmiHeader.biBitCount / 8 + 3) / 4 * 4;
 	m_clorByteNum = m_bmpInfo.bmiHeader.biBitCount / 8;

@@ -35,12 +35,16 @@ void Render::Pixel(const Vertex & v)
 	G = NUMMID(G, 0, 255);
 	B = NUMMID(B, 0, 255);
 
-	m_bmp.Set(i, j, RGB(R, G, B));
+	if (m_zBuffer.Set(i, j, v.pos.w)) {
+		m_bmp.Set(i, j, RGB(R, G, B));
+	}
 }
 
 void Render::Update(HDC hdc)
 {
 	g_model.UpdateFinal();
+	m_zBuffer.Clean();
+	m_bmp.Clean();
 
 	for (auto pt : g_model.m_triangles) {
 		FillTriangle(*pt);
