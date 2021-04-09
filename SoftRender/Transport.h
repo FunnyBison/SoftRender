@@ -23,6 +23,8 @@ public:
 	float Get(int i, int j) { return m.Get(i, j); }
 	void Set(int i, int j, float v) { m.Set(i, j, v); }
 
+	void TransformVector(Vector3d &v);
+
 	Matrix m;
 };
 

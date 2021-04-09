@@ -100,3 +100,14 @@ Transport & Transport::RotateZ(float angle)
 	TransformByOther(rz);
 	return *this;
 }
+
+void Transport::TransformVector(Vector3d & v)
+{
+	Vector3d res;
+	res.x = v.x * m.Get(0, 0) + v.y * m.Get(1, 0) + v.z * m.Get(2, 0) + v.w * m.Get(3, 0);
+	res.y = v.x * m.Get(0, 1) + v.y * m.Get(1, 1) + v.z * m.Get(2, 1) + v.w * m.Get(3, 1);
+	res.z = v.x * m.Get(0, 2) + v.y * m.Get(1, 2) + v.z * m.Get(2, 2) + v.w * m.Get(3, 2);
+	res.w = v.x * m.Get(0, 3) + v.y * m.Get(1, 3) + v.z * m.Get(2, 3) + v.w * m.Get(3, 3);
+
+	v = res;
+}

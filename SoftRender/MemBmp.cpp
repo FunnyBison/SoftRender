@@ -20,7 +20,7 @@ void MemBmp::Create(int w, int h)
 	m_bmpInfo.bmiHeader.biHeight = h;
 	m_bmpInfo.bmiHeader.biPlanes = 1;
 	m_bmpInfo.bmiHeader.biCompression = 0;
-	m_bmpInfo.bmiHeader.biSizeImage = (w + w % 4) * h * 3;
+	m_bmpInfo.bmiHeader.biSizeImage = (w * 24 + 31) / 32 * 4 * h;
 	m_bmpInfo.bmiHeader.biXPelsPerMeter = 3780;
 	m_bmpInfo.bmiHeader.biYPelsPerMeter = 3780;
 	m_bmpInfo.bmiHeader.biClrUsed = 0;

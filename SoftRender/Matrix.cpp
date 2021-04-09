@@ -80,7 +80,7 @@ Matrix Matrix::Product(const Matrix & m1, const Matrix & m2)
 	return ret;
 }
 
-void Matrix::Print()
+void Matrix::Print()const
 {
 	for (int i = 0; i < m_line; i++) {
 		for (int j = 0; j < m_column; j++) {

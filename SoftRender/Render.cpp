@@ -1,6 +1,9 @@
 #include "Render.h"
 #include "VertexBreaker.h"
 #include "common.h"
+#include "Model.h"
+#include <algorithm>
+#include "Camera.h"
 
 Render::Render()
 {
@@ -17,11 +20,8 @@ void Render::Resize(int w, int h)
 	m_bmp.Create(w, h);
 	m_width = w;
 	m_height = h;
-}
 
-void Render::Pixel(int x, int y, COLORREF clr)
-{
-	m_bmp.Set(x, y, clr);
+	g_Camera.ChangeAspect(1.0f * w / h);
 }
 
 void Render::Pixel(const Vertex & v)
@@ -34,30 +34,17 @@ void Render::Pixel(const Vertex & v)
 	R = NUMMID(R, 0, 255);
 	G = NUMMID(G, 0, 255);
 	B = NUMMID(B, 0, 255);
-	Pixel(i, j, RGB(R, G, B));
+
+	m_bmp.Set(i, j, RGB(R, G, B));
 }
 
 void Render::Update(HDC hdc)
 {
-	
-	Vertex v1, v2;
-	v1.pos.x = 0;
-	v1.pos.y = 0;
-	v1.pos.w = 0.5;
+	g_model.UpdateFinal();
 
-	v1.c.r = 1.0;
-	v1.c.g = 0.5;
-	v1.c.b = 0.0;
-
-	v2.pos.x = 300;
-	v2.pos.y = 450;
-	v2.pos.w = 0.5;
-
-	v2.c.r = 0.0;
-	v2.c.g = 0.5;
-	v2.c.b = 1.0;
-
-	Line(v1, v2);
+	for (auto pt : g_model.m_triangles) {
+		FillTriangle(*pt);
+	}
 
 	m_bmp.Draw(hdc, m_width, m_height);
 }
@@ -74,7 +61,7 @@ void Render::Line(const Vertex & v1, const Vertex & v2)
 		float deltaX = (w > 0 ? 1.0f : -1);
 		fstep = deltaX / (v2.pos.x - v1.pos.x);
 	}
-	else /*if (abs(h) > abs(w))*/ {
+	else {
 		step = abs(h) + 1;
 		float deltaY = (h > 0 ? 1.0f : -1);
 		fstep = deltaY / (v2.pos.y - v1.pos.y);
@@ -88,4 +75,67 @@ void Render::Line(const Vertex & v1, const Vertex & v2)
 		Pixel(v);
 		vb.Add();
 	}
+}
+
+void Render::FillTriangle(const Triangle &t)
+{
+	Vertex v[3];
+	for (int i = 0; i < 3; i++) {
+		v[i] = g_model.GetVertex(t.vIndex[i]);
+		g_model.TransformVertex(v[i]);
+		ToScreen(v[i]);
+	}
+
+	std::sort(v, v+3, 
+		[](const Vertex&v1, const Vertex&v2) {return v1.pos.y < v2.pos.y; });
+
+	if (v[1].pos.y == v[0].pos.y) {
+		FillPanTriangle(v[2], v[0], v[1]);
+	}
+	else if (v[1].pos.y == v[2].pos.y) {
+		FillPanTriangle(v[0], v[2], v[1]);
+	}
+	else {
+		VertexBreaker vb(v[0], v[2], (v[1].pos.y - v[0].pos.y) / (v[2].pos.y - v[0].pos.y));
+		Vertex vInter;
+		vb.Add();
+		vb.GetPoint(vInter);
+		FillPanTriangle(v[0], vInter, v[1]);
+		FillPanTriangle(v[2], vInter, v[1]);
+	}
+
+	Line(v[0], v[1]);
+	Line(v[1], v[2]);
+	Line(v[2], v[0]);
+}
+
+void Render::FillPanTriangle(const Vertex & v0, const Vertex & v1, const Vertex & v2)
+{
+	int step = abs(v1.pos.y - v0.pos.y) + 1;
+	float deltaY = v1.pos.y > v0.pos.y ? 1.0f : -1.0f;
+	VertexBreaker vb1(v0, v1, deltaY / (v1.pos.y - v0.pos.y));
+	VertexBreaker vb2(v0, v2, deltaY / (v2.pos.y - v0.pos.y));
+
+	Vertex scan1, scan2;
+	while (step > 0) {
+		step--;
+		vb1.GetPoint(scan1);
+		vb2.GetPoint(scan2);
+		Line(scan1, scan2);
+		vb1.Add();
+		vb2.Add();
+	}
+}
+
+void Render::ToScreen(Vertex & v)
+{
+	float x = v.pos.x / v.pos.w;
+	float y = v.pos.y / v.pos.w;
+	float z = v.pos.z / v.pos.w;
+
+	x = m_width * (x + 1) * 0.5f;
+	y = m_height * (y + 1) * 0.5f;
+
+	v.pos.x = round(x);
+	v.pos.y = round(y);
 }

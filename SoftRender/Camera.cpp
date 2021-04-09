@@ -30,17 +30,18 @@ void Camera::Update()
 	Vector3d right = Vector3d::CrossProduct(m_up, m_dir);
 
 	Transport rotate;
+	rotate.Unit();
 	rotate.Set(0, 0, right.x);
 	rotate.Set(1, 0, right.y);
 	rotate.Set(2, 0, right.z);
 
 	rotate.Set(0, 1, m_up.x);
-	rotate.Set(1, 1, m_up.x);
-	rotate.Set(2, 1, m_up.x);
+	rotate.Set(1, 1, m_up.y);
+	rotate.Set(2, 1, m_up.z);
 
 	rotate.Set(0, 2, m_dir.x);
-	rotate.Set(1, 2, m_dir.x);
-	rotate.Set(2, 2, m_dir.x);
+	rotate.Set(1, 2, m_dir.y);
+	rotate.Set(2, 2, m_dir.z);
 
 	m_cameraTrans.Unit().Translate(-m_pos).TransformByOther(rotate);
 }
@@ -51,6 +52,12 @@ void Camera::SetPerspective(float zn, float zf, float fovY, float aspect)
 	m_zf = zf;
 	m_fovY = fovY;
 	m_aspect = aspect;
+}
+
+void Camera::ChangeAspect(float aspect)
+{
+	m_aspect = aspect;
+	UpdateProject();
 }
 
 void Camera::UpdateProject()
@@ -64,3 +71,5 @@ void Camera::UpdateProject()
 	m_projTrans.Set(2, 3, 1);
 	m_projTrans.Set(3, 3, 0);
 }
+
+Camera g_Camera;

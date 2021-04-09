@@ -21,6 +21,7 @@ public:
 
 
 	void SetPerspective(float zn, float zf, float fovY, float aspect);
+	void ChangeAspect(float aspect);
 	void UpdateProject();
 	Transport m_projTrans;		//Õ∂”∞±‰ªªæÿ’Û
 	float m_zn;
@@ -29,6 +30,7 @@ public:
 	float m_aspect;
 };
 
+extern Camera g_Camera;
 
 #endif // !CAMERA_H
 

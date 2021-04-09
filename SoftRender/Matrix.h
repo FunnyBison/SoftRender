@@ -20,7 +20,7 @@ public:
 	float Get(int i, int j) const { return m_data[i*m_column + j]; }
 	void Set(int i, int j, float v) { m_data[i*m_column + j] = v; }
 
-	void Print();
+	void Print()const;
 
 private:
 	void Alloc()
